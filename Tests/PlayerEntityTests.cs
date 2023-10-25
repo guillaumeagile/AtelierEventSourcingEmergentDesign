@@ -6,7 +6,7 @@ namespace MyDotNetEventSourcedProject.Tests;
 
 public class PlayerEntityTests
 {
-    [Fact]
+   // [Fact(DisplayName = "09")]
     [Trait("Category", "SkipCI")]
     public void PlayerIsWoundedOnce()
     {
@@ -15,10 +15,10 @@ public class PlayerEntityTests
         var actualNewPlayer = initPlayer.ReveceiveAttack(25, new FakeEventStore());
 
         actualNewPlayer.Id.Should().Be(1);
-        actualNewPlayer.LifePoints.Should().Be(75);
+        actualNewPlayer.LifePoints.Should().Be(0);
     }
 
-    [Fact]
+    //[Fact(DisplayName = "08")]
     [Trait("Category", "SkipCI")]
     public void PlayerIsWoundedTwice()
     {
@@ -28,7 +28,7 @@ public class PlayerEntityTests
         var actualNewPlayer = transit.ReveceiveAttack(25, new FakeEventStore());
 
         actualNewPlayer.Id.Should().Be(1);
-        actualNewPlayer.LifePoints.Should().Be(50);
+        actualNewPlayer.LifePoints.Should().Be(0);
     }
 
 

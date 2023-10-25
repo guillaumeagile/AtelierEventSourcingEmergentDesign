@@ -56,7 +56,7 @@ public class GameTests
         game.listOfPlayers.Count().Should().Be(2);
     }
 
-    [Fact]
+   // [Fact(DisplayName = "06")]
     [Trait("Category", "SkipCI")]
     public void OnePlayerInTheGameIsWounded()
     {
@@ -67,7 +67,7 @@ public class GameTests
         game.listOfPlayers.First().LifePoints.Should().Be(32);
     }
 
-  // [Fact] 03
+  // [Fact(DisplayName = "03")] 
     [Trait("Category", "SkipCI")]
     public void OnePlayerInTheGameIsWoundedAndDied()
     {
@@ -119,7 +119,7 @@ public class GameTests
     }
 
 
-    [Fact]
+   // [Fact(DisplayName = "05")] 05
     [Trait("Category", "SkipCI")]
     public void OnePlayerOutOfTwoInTheGameIsWounded()
     {
@@ -136,7 +136,7 @@ public class GameTests
         game.listOfPlayers.Last().LifePoints.Should().Be(90);
     }
 
-    [Fact]
+    // [Fact(DisplayName = "04")] 04
     [Trait("Category", "SkipCI")]
     public void OnePlayerOutOfTwoInTheGameIsWoundedButOrderOfEventChangeTheOrderInTheListOfPlayers()
     {

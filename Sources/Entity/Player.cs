@@ -6,9 +6,10 @@ public record Player(int Id, int LifePoints)
 {
     public Player ReveceiveAttack(int InjuryReceived, IEventStore myeventStore)
     {
-        var newLifePoints = LifePoints - InjuryReceived;
+       // changer l'etat du player
+       
        // prendre une décision et faire savoir que qq chose s'est passé
 
-        return this with { LifePoints = newLifePoints };
+        return this with {  };
     }
 }
