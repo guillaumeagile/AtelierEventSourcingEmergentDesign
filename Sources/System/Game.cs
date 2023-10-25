@@ -11,15 +11,12 @@ namespace MyDotNetEventSourcedProject.Sources.System;
 public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayers)
 {
     public static Game Default() => new(ProgressionState.NotStarted, new List<Player>() );
-
-    public static Game GetGame(IEventStore myeventStore) => GetGame(myeventStore.Events);
-
+    
     private static Game GetGame(IEnumerable<object> events) =>
         events.Aggregate(Game.Default(), Game.When);
 
-    public static Game When(Game game, object @event)
-    {
-        return @event switch
+    public static Game When(Game game, object anEvent) =>
+        anEvent switch
         {
             // https://www.educative.io/answers/what-is-non-destructive-mutation-in-c-sharp-90
             PlayerEnteredTheGame(int PlayerId) => game with  
@@ -28,15 +25,14 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
                 listOfPlayers =  game.listOfPlayers.Append((new Player(PlayerId, 100)))
             },
             PlayerIsAttacked(int PlayerId, int InjuryReceived) => game with
-                          {
-                              listOfPlayers = ListAfterOnePlayerHasBeenAttacked(game, PlayerId, InjuryReceived)
-                          },
+            {
+                              
+            },
             PlayerDiedEvent(int PlayerId) => game with
-                          {
-                          },
+            {
+            },
             _ => game
         };
-    }
 
     private static IEnumerable<Player> ListAfterOnePlayerHasBeenAttacked(Game game, int playerId, int injuryReceived)
     {
@@ -53,4 +49,7 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
     
     private static IEventStore _myeventStore = null!;
     public static void Subscribe(IEventStore myEventStore) => _myeventStore = myEventStore;
+    
+    public static Game GetGame(IEventStore myeventStore) => GetGame(myeventStore.Events);
+
 }

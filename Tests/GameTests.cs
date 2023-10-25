@@ -68,38 +68,21 @@ public class GameTests
         game.listOfPlayers.Count().Should().Be(2);
     }
 
-   // [Fact(DisplayName = "06")]
+   // [Fact(DisplayName = "11")]
     [Trait("Category", "SkipCI")]
-    public void OnePlayerInTheGameIsWounded()
+    public void OnePlayerInTheGameIsWoundedAndLifePointIsZero()
     {
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
         myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 68));
-        var game = Game.GetGame(myeventStore);
-
-        game.listOfPlayers.First().LifePoints.Should().Be(32);
-    }
-
-  // [Fact(DisplayName = "03")] 
-    [Trait("Category", "SkipCI")]
-    public void OnePlayerInTheGameIsWoundedAndDied()
-    {
-        IEventStore myeventStore = new FakeEventStore();
-        Game.Subscribe(myeventStore);
-
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
         myeventStore.PushNewEvent(new PlayerIsAttacked(1, 100));
-
         var game = Game.GetGame(myeventStore);
-    
-        game.listOfPlayers.First().LifePoints.Should().Be(0);
-       myeventStore.Events.Should().Contain(new PlayerDiedEvent(1));
 
-       var game2 = Game.GetGame(myeventStore);
-       game2.listOfPlayers.Should().BeEmpty();
+        game.listOfPlayers.First().LifePoints.Should().Be(0);
     }
+
+ 
 
  //   [Fact(DisplayName = "10")]
     [Trait("Category", "SkipCI")]
@@ -134,6 +117,19 @@ public class GameTests
       //  game.listOfPlayers.First().Id.Should().Be(111);
     }
 
+    // [Fact(DisplayName = "06")]
+    [Trait("Category", "SkipCI")]
+    public void OnePlayerInTheGameIsWoundedAndLifePointsIsJustDecremented()
+    {
+        IEventStore myeventStore = new FakeEventStore();
+        Game.Subscribe(myeventStore);
+        
+        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
+        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 68));
+        var game = Game.GetGame(myeventStore);
+
+        game.listOfPlayers.First().LifePoints.Should().Be(32);
+    }
 
    // [Fact(DisplayName = "05")] 05
     [Trait("Category", "SkipCI")]
@@ -175,6 +171,23 @@ public class GameTests
         // TEST DE CONSOLIDATION: pour nous, ca ne pose pas de probleme
     }
 
+    // [Fact(DisplayName = "03")] 
+    [Trait("Category", "SkipCI")]
+    public void OnePlayerInTheGameIsWoundedAndDied()
+    {
+        IEventStore myeventStore = new FakeEventStore();
+        Game.Subscribe(myeventStore);
 
+        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
+        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 100));
+
+        var game = Game.GetGame(myeventStore);
+    
+        game.listOfPlayers.First().LifePoints.Should().Be(0);
+        myeventStore.Events.Should().Contain(new PlayerDiedEvent(1));
+
+        var game2 = Game.GetGame(myeventStore);
+        game2.listOfPlayers.Should().BeEmpty();
+    }
 
 }
