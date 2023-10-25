@@ -1,6 +1,6 @@
-using MyDotNetEventSourcedProject.Sources;
+using MyDotNetEventSourcedProject.Sources.Events;
 
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Tests;
 
 public class FakeEventStore: IEventStore
 {

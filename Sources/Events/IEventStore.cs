@@ -1,4 +1,4 @@
-namespace MyDotNetEventSourcedProject.Sources;
+namespace MyDotNetEventSourcedProject.Sources.Events;
 
 public interface IEventStore
 {

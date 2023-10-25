@@ -1,4 +1,4 @@
-namespace MyDotNetEventSourcedProject.Sources;
+namespace MyDotNetEventSourcedProject.Sources.Events;
 
 public enum BodyPart
 {
@@ -12,9 +12,6 @@ public enum BodyPart
 
 public record PlayerEnteredTheGame(int PlayerId): EventBase(PlayerId.ToString());
 public record PlayerDiedEvent(int PlayerId): EventBase(PlayerId.ToString());
-
-//public record PlayerAttackedByZombieEvent(int PlayerId, int ZombieId, BodyPart Target): EventBase(PlayerId.ToString());
-
 
 public record PlayerIsAttacked(int PlayerId, int InjuryReceived): EventBase(PlayerId.ToString());
 

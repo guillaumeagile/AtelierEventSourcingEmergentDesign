@@ -1,4 +1,7 @@
-namespace MyDotNetEventSourcedProject.Sources;
+using MyDotNetEventSourcedProject.Sources.Entity;
+using MyDotNetEventSourcedProject.Sources.Events;
+
+namespace MyDotNetEventSourcedProject.Sources.System;
  public enum ProgressionState
     {
         NotStarted,
@@ -21,7 +24,8 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
     {
         return @event switch
         {
-            PlayerEnteredTheGame(int PlayerId) => game with  // https://www.educative.io/answers/what-is-non-destructive-mutation-in-c-sharp-90
+            // https://www.educative.io/answers/what-is-non-destructive-mutation-in-c-sharp-90
+            PlayerEnteredTheGame(int PlayerId) => game with  
             {
                 progession = ProgressionState.Running,
                 listOfPlayers =  game.listOfPlayers.Append((new Player(PlayerId, 100)))
@@ -31,9 +35,9 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
                               listOfPlayers = ListAfterOnePlayerHasBeenAttacked(game, PlayerId, InjuryReceived)
                           },
             PlayerDiedEvent(int PlayerId) => game with
-                                                      {
-                                                          listOfPlayers = ListAfterOnePlayerHasDied(game, PlayerId)
-                                                      },
+                          {
+                              listOfPlayers = ListAfterOnePlayerHasDied(game, PlayerId)
+                          },
             _ => game
         };
     }
@@ -47,19 +51,16 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
     private static IEnumerable<Player> ListAfterOnePlayerHasBeenAttacked(Game game, int playerId, int injuryReceived)
     {
         var concernedPlayer = game.listOfPlayers.Filter(p => p.Id == playerId).FirstOrDefault();
-        var listOfPlayers = game.listOfPlayers.Filter(p => p.Id != playerId).ToList();
+        var newListOfPlayers = game.listOfPlayers.Filter(p => p.Id != playerId).ToList();
+        
+        newListOfPlayers.Add(concernedPlayer.ReveceiveAttack(injuryReceived, _myeventStore));
 
-        // à remplacer par le pattern FAN OUT (distribution d'evenements aux entités concernées)
-        listOfPlayers.Add(concernedPlayer.ReveceiveAttack(injuryReceived, _myeventStore));
-
-        return listOfPlayers;
+        return newListOfPlayers;
     }
 
-    private static IEventStore _myeventStore;
-    public static void Subscribe(IEventStore myeventStore)
+    private static IEventStore _myeventStore = null!;
+    public static void Subscribe(IEventStore myEventStore)
     {
-        _myeventStore = myeventStore;
+        _myeventStore = myEventStore;
     }
-
-
 }

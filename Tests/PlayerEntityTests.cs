@@ -1,8 +1,8 @@
 using FluentAssertions;
-using MyDotNetEventSourcedProject.Sources;
+using MyDotNetEventSourcedProject.Sources.Entity;
 using Xunit;
 
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Tests;
 
 public class PlayerEntityTests
 {

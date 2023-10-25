@@ -1,11 +1,9 @@
-﻿using System.Diagnostics.Tracing;
-using FluentAssertions;
-using MediatR;
-using FluentAssertions.LanguageExt;
-using MyDotNetEventSourcedProject.Sources;
+﻿using FluentAssertions;
+using MyDotNetEventSourcedProject.Sources.Events;
+using MyDotNetEventSourcedProject.Sources.System;
 using Xunit;
 
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Tests;
 
 public class GameTests
 {

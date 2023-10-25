@@ -1,4 +1,6 @@
-namespace MyDotNetEventSourcedProject.Sources;
+using MyDotNetEventSourcedProject.Sources.Events;
+
+namespace MyDotNetEventSourcedProject.Sources.Entity;
 
 public record Player(int Id, int LifePoints)
 {

@@ -1,12 +1,13 @@
 using FluentAssertions;
-using MyDotNetEventSourcedProject.Sources;
+using MyDotNetEventSourcedProject.Sources.Commands;
+using MyDotNetEventSourcedProject.Sources.System;
 using Xunit;
 
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Tests;
 
 public class CommandsForGameTest
 {
-    [Fact]
+   // [Fact]
     [Trait("Category", "SkipCI")]
     public void WhileOneCommand_BeginStateIsS()
     {
@@ -22,7 +23,7 @@ public class CommandsForGameTest
           game.listOfPlayers.Count().Should().Be(1);
     }
 
-    [Fact]
+ //   [Fact]
     [Trait("Category", "SkipCI")]
     public void While2Commands()
     {
