@@ -7,7 +7,7 @@ namespace MyDotNetEventSourcedProject.Tests;
 
 public class CommandsForGameTest
 {
-   // [Fact]
+   // [Fact] 02
     [Trait("Category", "SkipCI")]
     public void WhileOneCommand_BeginStateIsS()
     {
@@ -23,7 +23,7 @@ public class CommandsForGameTest
           game.listOfPlayers.Count().Should().Be(1);
     }
 
- //   [Fact]
+ //   [Fact] 01
     [Trait("Category", "SkipCI")]
     public void While2Commands()
     {

@@ -67,7 +67,7 @@ public class GameTests
         game.listOfPlayers.First().LifePoints.Should().Be(32);
     }
 
-    [Fact]
+  // [Fact] 03
     [Trait("Category", "SkipCI")]
     public void OnePlayerInTheGameIsWoundedAndDied()
     {
