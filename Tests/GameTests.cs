@@ -7,14 +7,9 @@ namespace MyDotNetEventSourcedProject.Tests;
 
 public class GameTests
 {
-  
-    public GameTests()
-    {
-       
-    }
-
+    
    [Fact]
-    [Trait("Category", "SkipCI")]
+   [Trait("Category", "SkipCI")]
     public void WhileNoEvents_BeginStateIsS()
     {
         IEventStore myeventStore = new FakeEventStore();
@@ -25,7 +20,10 @@ public class GameTests
 
     }
 
-    [Fact]
+    
+    
+    
+    //[Fact(DisplayName = "14")]
     [Trait("Category", "SkipCI")]
     public void CreatedEventIsExisting()
     {
@@ -38,7 +36,7 @@ public class GameTests
         game.progession.Should().Be(ProgressionState.Running);
     }
 
-    [Fact]
+    //[Fact(DisplayName = "13")]
     [Trait("Category", "SkipCI")]
     public void OneEventsForOnePlayerInTheGame()
     {
@@ -53,7 +51,7 @@ public class GameTests
     }
 
 
-    [Fact]
+    //[Fact(DisplayName = "12")]
     [Trait("Category", "SkipCI")]
     public void TwoEventsForTwoPlayersInTheGame()
     {

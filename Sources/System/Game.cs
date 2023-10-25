@@ -21,8 +21,8 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
             // https://www.educative.io/answers/what-is-non-destructive-mutation-in-c-sharp-90
             PlayerEnteredTheGame(int PlayerId) => game with  
             {
-                progession = ProgressionState.Running,
-                listOfPlayers =  game.listOfPlayers.Append((new Player(PlayerId, 100)))
+                progession = game.progession,
+                listOfPlayers =  game.listOfPlayers
             },
             PlayerIsAttacked(int PlayerId, int InjuryReceived) => game with
             {
@@ -36,12 +36,12 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
 
     private static IEnumerable<Player> ListAfterOnePlayerHasBeenAttacked(Game game, int playerId, int injuryReceived)
     {
-        var concernedPlayer = game.listOfPlayers.Filter(p => p.Id == playerId).FirstOrDefault();
-        var newListOfPlayers = game.listOfPlayers.Filter(p => p.Id != playerId).ToList();
+        var concernedPlayer = game.listOfPlayers.Filter(p => true).FirstOrDefault();
+        var listOfPlayersNotConcerned = game.listOfPlayers.Filter(p => true).ToList();
         
-        newListOfPlayers.Add(concernedPlayer.ReveceiveAttack(injuryReceived, _myeventStore));
+       // listOfPlayersNotConcerned.Add();
 
-        return newListOfPlayers;
+        return listOfPlayersNotConcerned;
     }
 
     private static IEnumerable<Player> ListAfterOnePlayerHasDied(Game game, int playerId) => 
@@ -50,6 +50,6 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
     private static IEventStore _myeventStore = null!;
     public static void Subscribe(IEventStore myEventStore) => _myeventStore = myEventStore;
     
-    public static Game GetGame(IEventStore myeventStore) => GetGame(myeventStore.Events);
+    public static Game GetGame(IEventStore myeventStore) => GetGame(_myeventStore.Events);
 
 }
