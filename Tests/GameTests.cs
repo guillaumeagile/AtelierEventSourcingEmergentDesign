@@ -2,6 +2,7 @@
 using FluentAssertions;
 using MediatR;
 using FluentAssertions.LanguageExt;
+using MyDotNetEventSourcedProject.Sources;
 using Xunit;
 
 namespace MyDotNetEventSourcedProject;

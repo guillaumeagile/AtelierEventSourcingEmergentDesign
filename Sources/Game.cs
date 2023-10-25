@@ -1,8 +1,4 @@
-using System.Runtime.CompilerServices;
-using LanguageExt;
-using LanguageExt.Sys.Test;
-
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Sources;
  public enum ProgressionState
     {
         NotStarted,

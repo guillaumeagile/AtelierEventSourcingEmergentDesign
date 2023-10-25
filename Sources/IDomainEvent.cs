@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Sources;
 
 public interface IDomainEvent: INotification
 {

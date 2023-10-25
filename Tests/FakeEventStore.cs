@@ -1,3 +1,5 @@
+using MyDotNetEventSourcedProject.Sources;
+
 namespace MyDotNetEventSourcedProject;
 
 public class FakeEventStore: IEventStore

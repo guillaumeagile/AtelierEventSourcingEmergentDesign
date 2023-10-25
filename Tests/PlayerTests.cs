@@ -1,4 +1,5 @@
 using FluentAssertions;
+using MyDotNetEventSourcedProject.Sources;
 using Xunit;
 
 namespace MyDotNetEventSourcedProject;

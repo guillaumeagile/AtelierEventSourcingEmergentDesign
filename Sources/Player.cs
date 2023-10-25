@@ -1,7 +1,4 @@
-using System.Data.Common;
-using System.Runtime.CompilerServices;
-
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Sources;
 
 public record Player(int Id, int LifePoints)
 {

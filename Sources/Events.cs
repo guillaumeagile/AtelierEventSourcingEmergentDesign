@@ -1,4 +1,4 @@
-namespace MyDotNetEventSourcedProject;
+namespace MyDotNetEventSourcedProject.Sources;
 
 public enum BodyPart
 {
