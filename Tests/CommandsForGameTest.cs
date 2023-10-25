@@ -19,7 +19,7 @@ public class CommandsForGameTest
         // obtenir l'état du game direcment comme résultante d'une commande ??
         // ou bien passer par un objet de Query (CQRS) qui "questionne" l'état du game ??
 
-          game.progession.Should().Be(ProgressionState.Running);
+          game.progession.Should().Be(ProgressionState.BBB);
           game.listOfPlayers.Count().Should().Be(1);
     }
 
@@ -37,7 +37,7 @@ public class CommandsForGameTest
         var game = commandBus.Send(aCommand1);
         game = commandBus2.Send(aCommand2);
 
-        game.progession.Should().Be(ProgressionState.Running);
+        game.progession.Should().Be(ProgressionState.BBB);
         game.listOfPlayers.Count().Should().Be(2);
     }
 }

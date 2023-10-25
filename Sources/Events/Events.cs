@@ -1,5 +1,11 @@
 namespace MyDotNetEventSourcedProject.Sources.Events;
 
+public record Event1(int PlayerId): EventBase(PlayerId.ToString());
+
+public record Event2(int PlayerId, int InjuryReceived): EventBase(PlayerId.ToString());
+
+public record Event3(int PlayerId): EventBase(PlayerId.ToString());
+
 public enum BodyPart
 {
     Head,
@@ -9,9 +15,3 @@ public enum BodyPart
     Arms,
     Legs
 }
-
-public record PlayerEnteredTheGame(int PlayerId): EventBase(PlayerId.ToString());
-public record PlayerDiedEvent(int PlayerId): EventBase(PlayerId.ToString());
-
-public record PlayerIsAttacked(int PlayerId, int InjuryReceived): EventBase(PlayerId.ToString());
-

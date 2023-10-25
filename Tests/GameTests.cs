@@ -8,15 +8,15 @@ namespace MyDotNetEventSourcedProject.Tests;
 public class GameTests
 {
     
-   [Fact]
+   [Fact(DisplayName = "15")]
    [Trait("Category", "SkipCI")]
-    public void WhileNoEvents_BeginStateIsS()
+    public void WhileNoEvents_BeginStateIs()
     {
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
         var game = Game.GetGame(myeventStore);
-        game.progession.Should().Be(ProgressionState.NotStarted);
+        game.progession.Should().Be(ProgressionState.AAA);
 
     }
 
@@ -30,10 +30,10 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
+        myeventStore.PushNewEvent(new Event1(1));
         var game = Game.GetGame(myeventStore);
 
-        game.progession.Should().Be(ProgressionState.Running);
+        game.progession.Should().Be(ProgressionState.BBB);
     }
 
     //[Fact(DisplayName = "13")]
@@ -43,10 +43,10 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
+        myeventStore.PushNewEvent(new Event1(1));
         var game = Game.GetGame(myeventStore);
 
-        game.progession.Should().Be(ProgressionState.Running);
+        game.progession.Should().Be(ProgressionState.BBB);
         game.listOfPlayers.Count().Should().Be(1);
     }
 
@@ -58,11 +58,11 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(2));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event1(2));
         var game = Game.GetGame(myeventStore);
 
-        game.progession.Should().Be(ProgressionState.Running);
+        game.progession.Should().Be(ProgressionState.BBB);
         game.listOfPlayers.Count().Should().Be(2);
     }
 
@@ -73,14 +73,13 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 100));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event2(1, 100));
         var game = Game.GetGame(myeventStore);
 
         game.listOfPlayers.First().LifePoints.Should().Be(0);
     }
-
- 
+    
 
  //   [Fact(DisplayName = "10")]
     [Trait("Category", "SkipCI")]
@@ -89,8 +88,8 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
 
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(222));
-        myeventStore.PushNewEvent(new PlayerDiedEvent(222));
+        myeventStore.PushNewEvent(new Event1(222));
+        myeventStore.PushNewEvent(new Event3(222));
 
         var game = Game.GetGame(myeventStore);
 
@@ -105,9 +104,9 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
 
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(222));
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(111));
-        myeventStore.PushNewEvent(new PlayerDiedEvent(222));
+        myeventStore.PushNewEvent(new Event1(222));
+        myeventStore.PushNewEvent(new Event1(111));
+        myeventStore.PushNewEvent(new Event3(222));
 
         var game = Game.GetGame(myeventStore);
 
@@ -122,8 +121,8 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 68));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event2(1, 68));
         var game = Game.GetGame(myeventStore);
 
         game.listOfPlayers.First().LifePoints.Should().Be(32);
@@ -136,11 +135,11 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(2));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event1(2));
 
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 50));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(2, 10));
+        myeventStore.PushNewEvent(new Event2(1, 50));
+        myeventStore.PushNewEvent(new Event2(2, 10));
 
         var game = Game.GetGame(myeventStore);
 
@@ -156,11 +155,11 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
         
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(2));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event1(2));
 
-        myeventStore.PushNewEvent(new PlayerIsAttacked(2, 10));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 50));
+        myeventStore.PushNewEvent(new Event2(2, 10));
+        myeventStore.PushNewEvent(new Event2(1, 50));
 
         var game = Game.GetGame(myeventStore);
 
@@ -176,13 +175,13 @@ public class GameTests
         IEventStore myeventStore = new FakeEventStore();
         Game.Subscribe(myeventStore);
 
-        myeventStore.PushNewEvent(new PlayerEnteredTheGame(1));
-        myeventStore.PushNewEvent(new PlayerIsAttacked(1, 100));
+        myeventStore.PushNewEvent(new Event1(1));
+        myeventStore.PushNewEvent(new Event2(1, 100));
 
         var game = Game.GetGame(myeventStore);
     
         game.listOfPlayers.First().LifePoints.Should().Be(0);
-        myeventStore.Events.Should().Contain(new PlayerDiedEvent(1));
+        myeventStore.Events.Should().Contain(new Event3(1));
 
         var game2 = Game.GetGame(myeventStore);
         game2.listOfPlayers.Should().BeEmpty();
