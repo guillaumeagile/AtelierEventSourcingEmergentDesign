@@ -10,7 +10,6 @@ public class CommandBus
 
     public Game Send(CommandPlayerEnterTheGame aCommand)
     {
-        //aCommand.PlayeNickName
         events.PushNewEvent(new PlayerEnteredTheGame(1));
         return Game.GetGame(events);
     }

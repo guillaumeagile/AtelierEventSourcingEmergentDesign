@@ -4,19 +4,12 @@ using Xunit;
 
 namespace MyDotNetEventSourcedProject;
 
-public class PlayerTests
+public class PlayerEntityTests
 {
-    List< IDomainEvent> events;
-    public PlayerTests()
-    {
-        events = new ();
-    }
-
     [Fact]
     [Trait("Category", "SkipCI")]
     public void PlayerIsWoundedOnce()
     {
-
         var initPlayer = new Player(1, 100);
 
         var actualNewPlayer = initPlayer.ReveceiveAttack(25, new FakeEventStore());
@@ -29,7 +22,6 @@ public class PlayerTests
     [Trait("Category", "SkipCI")]
     public void PlayerIsWoundedTwice()
     {
-
         var initPlayer = new Player(1, 100);
 
         var transit = initPlayer.ReveceiveAttack(25, new FakeEventStore());

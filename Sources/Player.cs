@@ -2,9 +2,6 @@ namespace MyDotNetEventSourcedProject.Sources;
 
 public record Player(int Id, int LifePoints)
 {
-    public Player GetPlayerState(IDomainEvent[] events) => this;
-
-
     public Player ReveceiveAttack(int InjuryReceived, IEventStore myeventStore)
     {
         var newLifePoints = LifePoints - InjuryReceived;
