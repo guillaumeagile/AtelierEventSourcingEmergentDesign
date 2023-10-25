@@ -6,18 +6,15 @@ namespace MyDotNetEventSourcedProject.Sources.System;
     {
         NotStarted,
         Running,
-        Ended
+        CCC
     }
 public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayers)
 {
     public static Game Default() => new(ProgressionState.NotStarted, new List<Player>() );
 
-    public static Game GetGame(IEventStore myeventStore)
-    {
-        return GetGame(myeventStore.Events);
-    }
+    public static Game GetGame(IEventStore myeventStore) => GetGame(myeventStore.Events);
 
-    public static Game GetGame(IEnumerable<object> events) =>
+    private static Game GetGame(IEnumerable<object> events) =>
         events.Aggregate(Game.Default(), Game.When);
 
     public static Game When(Game game, object @event)
@@ -36,16 +33,9 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
                           },
             PlayerDiedEvent(int PlayerId) => game with
                           {
-                              listOfPlayers = ListAfterOnePlayerHasDied(game, PlayerId)
                           },
             _ => game
         };
-    }
-
-    private static IEnumerable<Player> ListAfterOnePlayerHasDied(Game game, int playerId)
-    {
-        return game.listOfPlayers.Filter(p => p.Id != playerId).ToList();
-
     }
 
     private static IEnumerable<Player> ListAfterOnePlayerHasBeenAttacked(Game game, int playerId, int injuryReceived)
@@ -58,9 +48,9 @@ public record Game(ProgressionState progession, IEnumerable<Player> listOfPlayer
         return newListOfPlayers;
     }
 
+    private static IEnumerable<Player> ListAfterOnePlayerHasDied(Game game, int playerId) => 
+        game.listOfPlayers.ToList();
+    
     private static IEventStore _myeventStore = null!;
-    public static void Subscribe(IEventStore myEventStore)
-    {
-        _myeventStore = myEventStore;
-    }
+    public static void Subscribe(IEventStore myEventStore) => _myeventStore = myEventStore;
 }
